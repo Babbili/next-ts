@@ -1,9 +1,23 @@
+//import NexPage type from Next
 import type { NextPage } from 'next'
 import Head from 'next/head'
+// Image next/image component https://nextjs.org/docs/api-reference/next/image
 import Image from 'next/image'
+//import GetStaticProps type from Next
+import { GetStaticProps } from 'next'
+import Axios from 'axios'
 import styles from '../styles/Home.module.css'
+import { CoinInterface } from '../types'
+import { useEffect } from 'react'
 
-const Home: NextPage = () => {
+
+const Home: NextPage<{ coins : CoinInterface[] }> = ({ coins }) => {
+
+
+  useEffect(() => {
+    console.log('coins', coins )
+  }, [])
+
   return (
     <div className={styles.container}>
       <Head>
@@ -13,60 +27,48 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <h1>FLIPCOINS</h1>
+        <h3>Cryptocurrencies Live Prices</h3>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
+        <div className={styles.coins__container}>
+          {/* map the coins array and render each coin */}
+          {
+            coins.map(coin => {
+              return(
+                <div className={styles.coin} key={coin.symbol}>
+                  <Image src={coin.icon} alt={coin.symbol} width={25} height={25} />
+                  <p>{coin.name}</p>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+                  {/* format number into currency format, see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat */}
+                  <p>{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'usd', currencyDisplay: 'symbol' }).format(coin.price)}</p>
+                </div>
+              )
+            })
+          }
         </div>
+        
+
       </main>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
+      <footer className={styles.footer}></footer>
     </div>
   )
 }
 
 export default Home
+
+
+
+// Using GetStaticProps (Static Site Generation) method from NextJs to fetch coins data from coinstats API and return coins array as a prop
+// https://nextjs.org/docs/basic-features/data-fetching/get-static-props
+
+export const getStaticProps: GetStaticProps = async (context) => {
+
+  // using axios to preform to the fetch
+  let res = await Axios.get('https://api.coinstats.app/public/v1/coins?skip=0')
+  let coins = res.data.coins
+
+  return {
+    props: { coins } // will be passed to the page component as a prop
+  }
+}

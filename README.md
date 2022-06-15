@@ -1,6 +1,67 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# FLIPCOINS
 
-## Getting Started
+<img src="./public/4708.png" width="280px" height="auto" style="border-radius: 10px;" />
+<br />
+
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`npx create-next-app@latest --ts`](https://nextjs.org/docs/basic-features/typescript)  with TypeScript support
+
+The app fetches Cryptocurrencies prices, exchanges & news from [CoinStats API](https://documenter.getpostman.com/view/5734027/RzZ6Hzr3?version=latest)
+
+
+In the `Pages` directory will find JSX React components, Each page is associated with a route based on its file name, for example:<br />
+`index.tsx` is associates with main route '/'<br />
+`news.tsx` is associated with the news route '/news' <br />
+
+
+In the `styles` directory you will find all styling sheets files `.css`
+
+You can define all types, interfaces ... in `types.ts` file in root directory
+
+`GetStaticProps` method is followed to fetch coins data from the API as in NextJs docs<br />
+[https://nextjs.org/docs/basic-features/data-fetching/get-static-props](https://nextjs.org/docs/basic-features/data-fetching/get-static-props)
+```
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  const res = await fetch('https://.../posts')
+  const posts = await res.json()
+
+  // By returning { props: { posts } }, the component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      posts,
+    },
+  }
+```
+
+you may check other Data fetching methods in the link below
+[https://nextjs.org/docs/basic-features/data-fetching/overview](https://nextjs.org/docs/basic-features/data-fetching/overview)
+
+<br />
+<br />
+
+## Getting Started with Docker
+
+Frist build the Docker image
+```
+docker build -t cryptoapp .
+```
+
+
+then, start the Docker container locally
+```
+docker run --name cryptoapp -p 3000:3000 cryptoapp
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+<br />
+<br />
+
+
+
+## Getting Started with NPM
 
 First, run the development server:
 

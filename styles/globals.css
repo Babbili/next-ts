@@ -1,16 +1,41 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+/* defining custom css variable */
+:root {
+  --body-color: hsl(232, 31%, 98%);
+  --container-color: hsl(232, 31%, 100%);
+  --title-color: hsl(232, 18%, 6%);
+  --text-color: hsl(232, 18%, 22%);
+  --text-color-light: hsl(232, 18%, 76%);
+  
+  --body-font: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  --h1-font-size: 2.8rem;
+  --h2-font-size: 2rem;
+  --h3-font-size: 1.8rem;
+  --normal-font-size: 1rem;
+  }
+  
+  *, ::before, ::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    line-height: 1.6rem;
+    background: var(--body-color);
+    color: var(--text-color);
+    min-height: 100vh;
+  }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
+  /* will prevent image overflow and maintain responsiveness */
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
