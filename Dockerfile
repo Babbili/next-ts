@@ -5,7 +5,7 @@ FROM node:16-alpine AS development
 # set /app as working directory
 WORKDIR /app
 # copy all files to working directory
-COPY . .
+COPY . ./
 # install dependencies
 RUN npm install
 
@@ -24,11 +24,11 @@ ENV NODE_ENV production
 WORKDIR /app
 
 # copy package.json, package-lock.json from development stage
-COPY --from=development /app/package*.json .
+COPY --from=development /app/package*.json ./
 # install production dependencies only
 RUN npm install --only=prod
 # copy all files to work dir
-COPY . .
+COPY . ./
 # copy .next, public folders from development stage
 COPY --from=development /app/.next ./.next
 COPY --from=development /app/public ./public
