@@ -2,20 +2,24 @@
 
 <img src="./public/4708.png" width="280px" height="auto" style="border-radius: 10px;" />
 <br />
+<br />
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`npx create-next-app@latest --ts`](https://nextjs.org/docs/basic-features/typescript)  with TypeScript support
 
 The app fetches Cryptocurrencies prices, exchanges & news from [CoinStats API](https://documenter.getpostman.com/view/5734027/RzZ6Hzr3?version=latest)
 
+<br />
 
 In the `Pages` directory will find JSX React components, Each page is associated with a route based on its file name, for example:<br />
 `index.tsx` is associates with main route '/'<br />
 `news.tsx` is associated with the news route '/news' <br />
 
+<br />
 
-In the `styles` directory you will find all styling sheets files `.css`
+In the `styles` directory you will find all styling sheets files `.css`<br />
+You can define all types, interfaces ... in `types.ts` file in root directory<br />
 
-You can define all types, interfaces ... in `types.ts` file in root directory
+<br />
 
 `GetStaticProps` method is followed to fetch coins data from the API as in NextJs docs<br />
 [https://nextjs.org/docs/basic-features/data-fetching/get-static-props](https://nextjs.org/docs/basic-features/data-fetching/get-static-props)

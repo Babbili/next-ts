@@ -1,18 +1,23 @@
 //import NexPage type from Next
 import type { NextPage } from 'next'
 import Head from 'next/head'
-// Image next/image component https://nextjs.org/docs/api-reference/next/image
+// import next/image component https://nextjs.org/docs/api-reference/next/image
 import Image from 'next/image'
 //import GetStaticProps type from Next
 import { GetStaticProps } from 'next'
 import Axios from 'axios'
 import styles from '../styles/Home.module.css'
 import { CoinInterface } from '../types'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 
 const Home: NextPage<{ coins : CoinInterface[] }> = ({ coins }) => {
 
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const filteredCoins = coins.filter(coin => {   // filter coins array to includes search query  Array.inclues()
+    return coin.name.toLowerCase().includes(searchQuery.toLowerCase()) || coin.symbol.toLowerCase().includes(searchQuery.toLowerCase())
+  })
 
   useEffect(() => {
     console.log('coins', coins )
@@ -30,10 +35,16 @@ const Home: NextPage<{ coins : CoinInterface[] }> = ({ coins }) => {
         <h1>FLIPCOINS</h1>
         <h3>Cryptocurrencies Live Prices</h3>
 
+        {/* coin searchbar element */}
+        <div className={styles.search__bar}>
+          <input type='search' placeholder='Seach for Coin ...' onChange={e => setSearchQuery(e.target.value) } />
+          <button><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="var(--text-color)"><path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path></svg></button>
+        </div>
+
         <div className={styles.coins__container}>
           {/* map the coins array and render each coin */}
           {
-            coins.map(coin => {
+            filteredCoins.map(coin => {
               return(
                 <div className={styles.coin} key={coin.symbol}>
                   <Image src={coin.icon} alt={coin.symbol} width={25} height={25} />

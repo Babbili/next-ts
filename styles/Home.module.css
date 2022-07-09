@@ -23,6 +23,28 @@
   padding: 2rem 1rem;
 }
 
+/* ===Searchbar ==== */
+.search__bar {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  /* border: .5px solid var(--text-color-light); */
+  border-radius: 1rem;
+  opacity: .6;
+  cursor: pointer;
+  margin: 1rem;
+}
+.search__bar input {
+  height: 1.8rem;
+  width: 6rem;
+  background-color: transparent;
+  border: none;
+  color: var(--text-color-light);
+}
+.search__bar button {
+  border: none;
+  background-color: transparent;
+}
 /* ===== coins container =====  */
 .coins__container {
   display: flex;
